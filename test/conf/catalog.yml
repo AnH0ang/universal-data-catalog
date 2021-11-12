@@ -1,0 +1,27 @@
+_excel: &excel
+  type: pandas.ExcelDataSet
+  save_args:
+    index: False
+
+_csv: &csv
+  type: pandas.CSVDataSet
+  load_args:
+    sep: ","
+  save_args:
+    index: False
+
+titanic:
+  <<: *csv
+  filepath: data/titanic.csv
+
+titanic_save:
+  <<: *csv
+  filepath: data/titanic_saved.csv
+
+titanic_excel:
+  <<: *excel
+  filepath: data/titanic.xlsx
+
+titanic_excel_save:
+  <<: *excel
+  filepath: data/titanic_saved.xlsx

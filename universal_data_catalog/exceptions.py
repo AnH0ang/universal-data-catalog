@@ -1,0 +1,2 @@
+class ProviderNotFoundError(Exception):
+    pass
