@@ -38,9 +38,10 @@ class DataCatalog:
 
     @staticmethod
     def _import_provider(name: str) -> Any:
-        module_name, class_name = name.split(".")[:-1], name.split(".")[-1]
-        full_module_path = ".".join(["universal_data_catalog", "provider"] + module_name)
-        assert importlib.find_loader(full_module_path)
-        module = importlib.import_module(full_module_path)
+        relativ_path_list, class_name = name.split(".")[:-1], name.split(".")[-1]
+        provider_module = "universal_data_catalog.provider"
+        relative_path = "." + ".".join(relativ_path_list)
+        assert importlib.util.find_spec(relative_path, provider_module)
+        module = importlib.import_module(relative_path, provider_module)
         assert hasattr(module, class_name)
         return getattr(module, class_name)
