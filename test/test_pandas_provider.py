@@ -12,7 +12,7 @@ from universal_data_catalog.data_catalog import DataCatalog
 @pytest.fixture(autouse=True)
 def run_around_tests():
     os.chdir("test")
-    shutil.copytree("_data", "data", dirs_exist_ok=True)
+    shutil.copytree(os.path.join("_data", "pandas"), "data", dirs_exist_ok=True)
     yield
     shutil.rmtree("data", ignore_errors=True)
     os.chdir("..")
@@ -42,14 +42,14 @@ def titanic_assertion_tests(df):
 
 
 class TestCSVDataSet:
-    def test_load_from_catalog(self) -> None:
+    def test_load(self) -> None:
         conf = OmegaConf.load("conf/catalog.yml")
         assert isinstance(conf, DictConfig)
         catalog = DataCatalog(conf, ".")
         df = catalog.load("titanic")
         titanic_assertion_tests(df)
 
-    def test_save_to_catalog(self) -> None:
+    def test_save(self) -> None:
         df_orig = pd.read_csv("data/titanic.csv")
         conf = OmegaConf.load("conf/catalog.yml")
         assert isinstance(conf, DictConfig)
@@ -60,14 +60,14 @@ class TestCSVDataSet:
 
 
 class TestExcelDataSet:
-    def test_load_from_catalog(self) -> None:
+    def test_load(self) -> None:
         conf = OmegaConf.load("conf/catalog.yml")
         assert isinstance(conf, DictConfig)
         catalog = DataCatalog(conf, ".")
         df = catalog.load("titanic_excel")
         titanic_assertion_tests(df)
 
-    def test_save_to_catalog(self) -> None:
+    def test_save(self) -> None:
         df_orig = pd.read_excel("data/titanic.xlsx")
         conf = OmegaConf.load("conf/catalog.yml")
         assert isinstance(conf, DictConfig)
