@@ -1,0 +1,39 @@
+site_name: "Universal Data Catalog"
+copyright: "Made by An Hoang"
+use_directory_urls: false
+extra_css:
+  - assets/extra.css
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/git-alt
+  features:
+    - search.highlight
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+            show_root_heading: false
+      watch:
+        - universal_data_catalog
+nav:
+  - Home : index.md
+  - Installation : logic/install.md
+  - Example : logic/example.md
+  - Custom Provider : logic/custom_provider.md
+  - Config File: logic/config_file.md
+  - Code Documentation:
+      - Data Catalog: code/data_catalog.md
+      - Provider: 
+        - Pandas: code/pandas.md
+        - Networkx: code/networkx.md
