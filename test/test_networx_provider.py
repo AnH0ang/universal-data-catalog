@@ -4,6 +4,7 @@ import shutil
 import networkx as nx
 import pytest
 from omegaconf import DictConfig, OmegaConf
+
 from universal_data_catalog.data_catalog import DataCatalog
 
 

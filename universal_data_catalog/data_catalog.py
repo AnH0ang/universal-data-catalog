@@ -1,5 +1,6 @@
 import importlib
 import os
+from importlib.util import find_spec
 from typing import Any, Type
 
 from omegaconf import DictConfig
@@ -41,7 +42,7 @@ class DataCatalog:
         relativ_path_list, class_name = name.split(".")[:-1], name.split(".")[-1]
         provider_module = "universal_data_catalog.provider"
         relative_path = "." + ".".join(relativ_path_list)
-        assert importlib.util.find_spec(relative_path, provider_module)
+        assert find_spec(relative_path, provider_module)
         module = importlib.import_module(relative_path, provider_module)
         assert hasattr(module, class_name)
         return getattr(module, class_name)

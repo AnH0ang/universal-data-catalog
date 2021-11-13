@@ -6,6 +6,7 @@ import shutil
 import pandas as pd
 import pytest
 from omegaconf import DictConfig, OmegaConf
+
 from universal_data_catalog.data_catalog import DataCatalog
 
 

@@ -15,7 +15,18 @@ openpyxl = { version = "^3.0.9", optional = true }
 networkx = { version = "^2.6.3", optional = true }
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+isort = ""
+flake8 = ""
+flake8-docstrings = ""
+black = ""
+mypy = ""
+vulture = ""
+pytest = ""
+pytest-cov = ""
+mkdocs = ""
+mkdocs-material = ""
+mkdocstrings = ""
+unimport = "^0.9.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -24,3 +35,19 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.extras]
 pandas = ["pandas", "openpyxl"]
 networkx = ["networkx"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.black]
+line-length = 100
+atomic = true
+
+[tool.vulture]
+ignore_decorators = ["@app.route", "@require_*"]
+ignore_names = ["visit_*", "do_*"]
+make_whitelist = true
+min_confidence = 80
+paths = ["{{ cookiecutter.repo_name }}"]
+sort_by_size = true
