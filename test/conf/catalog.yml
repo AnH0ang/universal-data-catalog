@@ -25,3 +25,11 @@ titanic_excel:
 titanic_excel_save:
   <<: *excel
   filepath: data/titanic_saved.xlsx
+
+graph:
+  type: networkx.GMLNetworkX
+  filepath: data/graph.gml
+
+graph_save:
+  type: networkx.GMLNetworkX
+  filepath: data/graph_save.gml
