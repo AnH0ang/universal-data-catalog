@@ -26,14 +26,13 @@ flake8 = ""
 flake8-docstrings = ""
 black = ""
 mypy = ""
-vulture = ""
-pytest = ""
-pytest-cov = ""
+pytest =  ""
 mkdocs = ""
 mkdocs-material = ""
 mkdocstrings = ""
 unimport = ""
 pre-commit = ""
+coverage = ""
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

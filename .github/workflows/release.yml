@@ -46,6 +46,9 @@ jobs:
       - name: Test with pytest
         run: poetry run pytest
 
+      - name: Create coverage report
+        run: poetry run coverage xml
+
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
