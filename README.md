@@ -31,7 +31,7 @@ Instead of hard codeding data interface in `pandas`, the configuration is instea
 pip install universal-data-catalog
 ```
 
-## Usage 
+## Usage
 
 ```yaml
 # catalog.yml
