@@ -27,6 +27,7 @@ class DataCatalog:
         assert os.path.exists(config_dir)
         conf = OmegaConf.load(config_dir)
         assert isinstance(conf, DictConfig)
+        conf = self._overload_catalog_config(conf)
         return conf
 
     def _pick_dataset_config(self, name: str) -> DictConfig:
@@ -40,8 +41,16 @@ class DataCatalog:
         return self._import_provider(dataset_config["type"])
 
     def _overload_dataset_config(self, dataset_config: DictConfig) -> DictConfig:
+        # prepend root path to filepath
         dataset_config.filepath = os.path.join(self.root_dir, dataset_config.filepath)
         return dataset_config
+
+    @staticmethod
+    def _overload_catalog_config(config: DictConfig) -> DictConfig:
+        # remove all entries with keys that start with a underscore
+        for key in [k for k in config.keys() if k.startswith("_")]:
+            config.pop(key)
+        return config
 
     @staticmethod
     def _import_provider(name: str) -> Any:
