@@ -1,0 +1,19 @@
+name: Code Quality
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+  push:
+    branches: [master, dev]
+    paths-ignore:
+      - 'docs/**'
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    name: Linting
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - uses: pre-commit/action@v2.0.0
+      
