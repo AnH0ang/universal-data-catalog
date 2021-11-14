@@ -57,3 +57,5 @@ repos:
       - id: unimport
         name: unimport
         description: "A linter, formatter for finding and removing unused import statements"
+        args:
+          - "-r"

@@ -5,7 +5,6 @@ import shutil
 
 import pandas as pd
 import pytest
-from omegaconf import DictConfig, OmegaConf
 
 from universal_data_catalog.data_catalog import DataCatalog
 
@@ -50,17 +49,13 @@ def titanic_assertion_tests(df):
 
 class TestCSVDataSet:
     def test_load(self) -> None:
-        conf = OmegaConf.load("conf/catalog.yml")
-        assert isinstance(conf, DictConfig)
-        catalog = DataCatalog(conf, ".")
+        catalog = DataCatalog("conf/catalog.yml", ".")
         df = catalog.load("titanic")
         titanic_assertion_tests(df)
 
     def test_save(self) -> None:
         df_orig = pd.read_csv("data/titanic.csv")
-        conf = OmegaConf.load("conf/catalog.yml")
-        assert isinstance(conf, DictConfig)
-        catalog = DataCatalog(conf, ".")
+        catalog = DataCatalog("conf/catalog.yml", ".")
         catalog.save("titanic_save", df_orig)
         df = pd.read_csv("data/titanic_saved.csv")
         titanic_assertion_tests(df)
@@ -68,17 +63,13 @@ class TestCSVDataSet:
 
 class TestExcelDataSet:
     def test_load(self) -> None:
-        conf = OmegaConf.load("conf/catalog.yml")
-        assert isinstance(conf, DictConfig)
-        catalog = DataCatalog(conf, ".")
+        catalog = DataCatalog("conf/catalog.yml", ".")
         df = catalog.load("titanic_excel")
         titanic_assertion_tests(df)
 
     def test_save(self) -> None:
         df_orig = pd.read_excel("data/titanic.xlsx")
-        conf = OmegaConf.load("conf/catalog.yml")
-        assert isinstance(conf, DictConfig)
-        catalog = DataCatalog(conf, ".")
+        catalog = DataCatalog("conf/catalog.yml", ".")
         catalog.save("titanic_excel_save", df_orig)
         df = pd.read_excel("data/titanic_saved.xlsx")
         titanic_assertion_tests(df)

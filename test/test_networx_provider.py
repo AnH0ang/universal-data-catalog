@@ -3,7 +3,6 @@ import shutil
 
 import networkx as nx
 import pytest
-from omegaconf import DictConfig, OmegaConf
 
 from universal_data_catalog.data_catalog import DataCatalog
 
@@ -48,16 +47,12 @@ def graph_assertion_test(graph: nx.Graph):
 
 class TestGMLNetworkx:
     def test_load(self):
-        conf = OmegaConf.load("conf/catalog.yml")
-        assert isinstance(conf, DictConfig)
-        catalog = DataCatalog(conf, ".")
+        catalog = DataCatalog("conf/catalog.yml", ".")
         graph = catalog.load("graph")
         graph_assertion_test(graph)
 
     def test_save(self, sample_graph: nx.Graph):
-        conf = OmegaConf.load("conf/catalog.yml")
-        assert isinstance(conf, DictConfig)
-        catalog = DataCatalog(conf, ".")
+        catalog = DataCatalog("conf/catalog.yml", ".")
         catalog.save("graph_save", sample_graph)
         assert os.path.exists("data/graph_save.gml")
         graph = nx.read_gml("data/graph_save.gml")
