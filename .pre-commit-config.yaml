@@ -44,3 +44,9 @@ repos:
         name: mypy
         description: Optional Static Typing for Python
         files: \.py$
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: master
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
