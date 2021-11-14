@@ -33,6 +33,7 @@ mkdocs = ""
 mkdocs-material = ""
 mkdocstrings = ""
 unimport = ""
+pre-commit = ""
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
