@@ -25,7 +25,13 @@ Instead of hard codeding data interface in `pandas`, the configuration is instea
     * `azure blob` (planned)
     * `aws s3` (planned)
 
-## How to use it ?
+## Installation
+
+```
+pip install universal-data-catalog
+```
+
+## Usage 
 
 ```yaml
 # catalog.yml
