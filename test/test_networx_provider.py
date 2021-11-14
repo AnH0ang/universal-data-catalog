@@ -10,11 +10,17 @@ from universal_data_catalog.data_catalog import DataCatalog
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
+    assert os.path.exists("test")
     os.chdir("test")
-    shutil.copytree(os.path.join("_data", "networkx"), "data", dirs_exist_ok=True)
-    yield
-    shutil.rmtree("data", ignore_errors=True)
-    os.chdir("..")
+
+    try:
+        assert os.path.exists("_data")
+        assert not os.path.exists("data")
+        shutil.copytree(os.path.join("_data", "networkx"), "data")
+        yield
+    finally:
+        shutil.rmtree("data", ignore_errors=True)
+        os.chdir("..")
 
 
 @pytest.fixture

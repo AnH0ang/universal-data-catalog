@@ -16,7 +16,7 @@ It is not shipped with the package by default. To do this simply run the followi
 pip install universal-data-catalog[pandas]
 ```
 
-Other extras are also available. 
+Other extras are also available.
 The extras that are currently available are:
 
 * `pandas`

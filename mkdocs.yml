@@ -4,7 +4,7 @@ use_directory_urls: false
 extra_css:
   - assets/extra.css
 theme:
-  name: material
+  name: readthedocs
   icon:
     repo: fontawesome/brands/git-alt
   features:
@@ -34,6 +34,6 @@ nav:
   - Config File: logic/config_file.md
   - Code Documentation:
       - Data Catalog: code/data_catalog.md
-      - Provider: 
+      - Provider:
         - Pandas: code/pandas.md
         - Networkx: code/networkx.md
