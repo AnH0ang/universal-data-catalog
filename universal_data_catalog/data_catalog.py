@@ -5,6 +5,8 @@ from typing import Any, Type, Union
 
 from omegaconf import DictConfig, OmegaConf
 
+from .constans import ReservedKeys
+from .exceptions import ReadOnlyError
 from .provider.base_provider import BaseProvider
 
 
@@ -25,6 +27,13 @@ class DataCatalog:
 
     def save(self, name: str, value: Any) -> None:
         dataset_config = self._pick_dataset_config(name)
+
+        # raise error is real only flag is set to true
+        if (ReservedKeys.READONLY in dataset_config) and dataset_config[
+            ReservedKeys.READONLY
+        ]:
+            raise ReadOnlyError()
+
         provider = self._load_provider(dataset_config)
         return provider(dataset_config).save(value)
 
@@ -42,8 +51,8 @@ class DataCatalog:
         return dataset_config
 
     def _load_provider(self, dataset_config: DictConfig) -> Type[BaseProvider]:
-        assert "type" in dataset_config
-        return self._import_provider(dataset_config["type"])
+        assert ReservedKeys.TYPE in dataset_config
+        return self._import_provider(dataset_config[ReservedKeys.TYPE])
 
     def _overload_dataset_config(self, dataset_config: DictConfig) -> DictConfig:
         # prepend root path to filepath

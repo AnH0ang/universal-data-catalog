@@ -8,6 +8,7 @@ import pytest
 from omegaconf import DictConfig, OmegaConf
 
 from universal_data_catalog.data_catalog import DataCatalog
+from universal_data_catalog.exceptions import ReadOnlyError
 
 
 @pytest.fixture(autouse=True)
@@ -67,6 +68,12 @@ class TestCSVDataSet:
         catalog.save("titanic_save", df_orig)
         df = pd.read_csv("data/titanic_saved.csv")
         titanic_assertion_tests(df)
+
+    def test_fail_on_save_to_readonly(self) -> None:
+        with pytest.raises(ReadOnlyError):
+            df_orig = pd.read_csv("data/titanic.csv")
+            catalog = DataCatalog("conf/catalog.yml", ".")
+            catalog.save("titanic_save_readonly", df_orig)
 
 
 class TestExcelDataSet:

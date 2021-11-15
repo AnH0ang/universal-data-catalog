@@ -9,6 +9,7 @@ _csv: &csv
     sep: ","
   save_args:
     index: False
+  readonly: False
 
 titanic:
   <<: *csv
@@ -17,6 +18,11 @@ titanic:
 titanic_save:
   <<: *csv
   filepath: data/titanic_saved.csv
+
+titanic_save_readonly:
+  <<: *csv
+  filepath: data/titanic_saved.csv
+  readonly: True
 
 titanic_excel:
   <<: *excel
