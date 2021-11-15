@@ -1,7 +1,7 @@
 import importlib
 import os
 from importlib.util import find_spec
-from typing import Any, Type
+from typing import Any, Type, Union
 
 from omegaconf import DictConfig, OmegaConf
 
@@ -9,8 +9,13 @@ from .provider.base_provider import BaseProvider
 
 
 class DataCatalog:
-    def __init__(self, config_dir: str, root_dir: str):
-        self.config = self._load_catalog_config_from_yaml(config_dir)
+    def __init__(self, config: Union[str, DictConfig], root_dir: str):
+        if isinstance(config, str):
+            self.config = self._load_catalog_config_from_yaml(config)
+        elif isinstance(config, DictConfig):
+            self.config = config
+        else:
+            raise ValueError()
         self.root_dir = root_dir
 
     def load(self, name: str) -> Any:

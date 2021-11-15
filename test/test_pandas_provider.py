@@ -5,6 +5,7 @@ import shutil
 
 import pandas as pd
 import pytest
+from omegaconf import DictConfig, OmegaConf
 
 from universal_data_catalog.data_catalog import DataCatalog
 
@@ -48,8 +49,15 @@ def titanic_assertion_tests(df):
 
 
 class TestCSVDataSet:
-    def test_load(self) -> None:
+    def test_load_from_dir(self) -> None:
         catalog = DataCatalog("conf/catalog.yml", ".")
+        df = catalog.load("titanic")
+        titanic_assertion_tests(df)
+
+    def test_load_from_dictconfig(self) -> None:
+        config = OmegaConf.load("conf/catalog.yml")
+        assert isinstance(config, DictConfig)
+        catalog = DataCatalog(config, ".")
         df = catalog.load("titanic")
         titanic_assertion_tests(df)
 
