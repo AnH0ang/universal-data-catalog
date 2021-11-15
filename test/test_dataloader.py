@@ -25,6 +25,6 @@ def run_around_tests():
 
 class TestDataLoader:
     def test_load_custom_provider(self):
-        catalog = DataCatalog("conf/catalog.yml", ".")
+        catalog = DataCatalog("data/catalog.yml", ".")
         value = catalog.load("custom_provider")
-        assert value == "test"
+        assert value == "test\n"
