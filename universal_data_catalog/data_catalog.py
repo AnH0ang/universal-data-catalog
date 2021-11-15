@@ -1,11 +1,12 @@
-import importlib
 import os
-from importlib.util import find_spec
 from typing import Any, Type, Union
 
 from omegaconf import DictConfig, OmegaConf
 
+from .constants import ReservedKeys
+from .exceptions import ReadOnlyError
 from .provider.base_provider import BaseProvider
+from .util.load_provider import load_provider_from_path
 
 
 class DataCatalog:
@@ -25,6 +26,13 @@ class DataCatalog:
 
     def save(self, name: str, value: Any) -> None:
         dataset_config = self._pick_dataset_config(name)
+
+        # raise error is real only flag is set to true
+        if (ReservedKeys.READONLY in dataset_config) and dataset_config[
+            ReservedKeys.READONLY
+        ]:
+            raise ReadOnlyError()
+
         provider = self._load_provider(dataset_config)
         return provider(dataset_config).save(value)
 
@@ -42,8 +50,8 @@ class DataCatalog:
         return dataset_config
 
     def _load_provider(self, dataset_config: DictConfig) -> Type[BaseProvider]:
-        assert "type" in dataset_config
-        return self._import_provider(dataset_config["type"])
+        assert ReservedKeys.TYPE in dataset_config
+        return load_provider_from_path(dataset_config[ReservedKeys.TYPE])
 
     def _overload_dataset_config(self, dataset_config: DictConfig) -> DictConfig:
         # prepend root path to filepath
@@ -53,16 +61,6 @@ class DataCatalog:
     @staticmethod
     def _overload_catalog_config(config: DictConfig) -> DictConfig:
         # remove all entries with keys that start with a underscore
-        for key in [k for k in config.keys() if k.startswith("_")]:
+        for key in [k for k in config.keys() if k.startswith("_")]:  # type: ignore
             config.pop(key)
         return config
-
-    @staticmethod
-    def _import_provider(name: str) -> Any:
-        relativ_path_list, class_name = name.split(".")[:-1], name.split(".")[-1]
-        provider_module = "universal_data_catalog.provider"
-        relative_path = "." + ".".join(relativ_path_list)
-        assert find_spec(relative_path, provider_module)
-        module = importlib.import_module(relative_path, provider_module)
-        assert hasattr(module, class_name)
-        return getattr(module, class_name)
