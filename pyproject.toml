@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "universal_data_catalog"
-version = "0.1.4"
+version = "0.1.5"
 description = "A abstraction layer for dataset IO that can be configured using yaml files."
 authors = ["An Hoang <anhoang31415@gmail.com>"]
 readme = "README.md"
@@ -27,12 +27,12 @@ flake8-docstrings = ""
 black = ""
 mypy = ""
 pytest =  ""
+pytest-cov =  ""
 mkdocs = ""
 mkdocs-material = ""
 mkdocstrings = ""
 unimport = ""
 pre-commit = ""
-coverage = ""
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
