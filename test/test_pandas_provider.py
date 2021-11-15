@@ -1,5 +1,3 @@
-# More infos under https://docs.pytest.org
-
 import os
 import shutil
 

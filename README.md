@@ -22,6 +22,7 @@ Instead of hard codeding data interface in `pandas`, the configuration is instea
 * Wide ecosystem with wide range of providers
     * `pandas`
     * `networkx`
+    * `pickle`
     * `snowflake` (planned)
     * `azure blob` (planned)
     * `aws s3` (planned)
