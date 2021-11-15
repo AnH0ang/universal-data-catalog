@@ -1,8 +1,9 @@
 # universal-data-catalog
 
 [![Documentation Status](https://readthedocs.org/projects/universal-data-catalog/badge/?version=latest)](https://universal-data-catalog.readthedocs.io/en/latest/?badge=latest)
-![example workflow](https://github.com/AnH0ang/universal-data-catalog/actions/workflows/github-actions-demo.yml/badge.svg)
-[![codecov](https://codecov.io/gh/AnH0ang/universal-data-catalog/branch/github-actions-test/graph/badge.svg?token=UKXBKOXDVQ)](https://codecov.io/gh/AnH0ang/universal-data-catalog)
+![release workflow](https://github.com/AnH0ang/universal-data-catalog/actions/workflows/release.yml/badge.svg)
+![test workflow](https://github.com/AnH0ang/universal-data-catalog/actions/workflows/test.yml/badge.svg)
+[![codecov](https://codecov.io/gh/AnH0ang/universal-data-catalog/branch/master/graph/badge.svg?token=UKXBKOXDVQ)](https://codecov.io/gh/AnH0ang/universal-data-catalog)
 [![PyPI version](https://badge.fury.io/py/universal-data-catalog.svg)](https://badge.fury.io/py/universal-data-catalog)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/AnH0ang/universal-data-catalog/blob/master/LICENCE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b5bc602f4fb7c1132715/maintainability)](https://codeclimate.com/github/AnH0ang/universal-data-catalog/maintainability)
