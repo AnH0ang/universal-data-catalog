@@ -41,11 +41,8 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
 
-      - name: Test with pytest
-        run: poetry run pytest
-
-      - name: Create coverage report
-        run: poetry run coverage xml
+      - name: Test with pytest and create coverage report
+        run: poetry run pytest --cov=universal_data_catalog -ra --cov-report term-missing --cov-report=xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v1
