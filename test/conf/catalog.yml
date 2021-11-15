@@ -39,3 +39,7 @@ graph:
 graph_save:
   type: networkx.GMLNetworkX
   filepath: data/graph_save.gml
+
+custom_provider:
+  type: extra.custom_provider.CustomProvider
+  filepath: data/test.txt
