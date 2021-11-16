@@ -1,11 +1,11 @@
 import abc
 from typing import Any
 
-from omegaconf import DictConfig
+from universal_data_catalog.types import ConfigDict
 
 
 class BaseProvider(abc.ABC):
-    def __init__(self, config: DictConfig, **kwargs: Any) -> None:
+    def __init__(self, config: ConfigDict, **kwargs: Any) -> None:
         self.config = config
 
     @abc.abstractmethod

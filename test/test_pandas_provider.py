@@ -3,10 +3,12 @@ import shutil
 
 import pandas as pd
 import pytest
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import OmegaConf
+from omegaconf.dictconfig import DictConfig
 
 from universal_data_catalog.data_catalog import DataCatalog
 from universal_data_catalog.exceptions import ReadOnlyError
+from universal_data_catalog.types import ConfigDict
 
 
 @pytest.fixture(autouse=True)
@@ -54,8 +56,9 @@ class TestCSVDataSet:
         titanic_assertion_tests(df)
 
     def test_load_from_dictconfig(self) -> None:
-        config = OmegaConf.load("data/catalog.yml")
-        assert isinstance(config, DictConfig)
+        _config = OmegaConf.load("data/catalog.yml")
+        assert isinstance(_config, DictConfig)
+        config: ConfigDict = OmegaConf.to_object(_config)  # type: ignore
         catalog = DataCatalog(config, ".")
         df = catalog.load("titanic")
         titanic_assertion_tests(df)

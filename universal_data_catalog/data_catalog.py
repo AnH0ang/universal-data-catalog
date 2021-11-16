@@ -6,17 +6,18 @@ from omegaconf import DictConfig, OmegaConf
 from .constants import ReservedKeys
 from .exceptions import ReadOnlyError
 from .provider.base_provider import BaseProvider
+from .types import ConfigDict
 from .util.load_provider import load_provider_from_path
 
 
 class DataCatalog:
-    def __init__(self, config: Union[str, DictConfig], root_dir: str):
+    def __init__(self, config: Union[str, ConfigDict], root_dir: str):
         self.root_dir = root_dir
 
         # load config from config from input
         if isinstance(config, str):
             self.config = self._load_catalog_config_from_yaml(config)
-        elif isinstance(config, DictConfig):
+        elif isinstance(config, dict):
             self.config = config
         else:
             raise ValueError()
@@ -41,22 +42,23 @@ class DataCatalog:
         provider = self._load_provider(dataset_config)
         return provider(dataset_config).save(value)
 
-    def _load_catalog_config_from_yaml(self, config_dir: str) -> DictConfig:
+    def _load_catalog_config_from_yaml(self, config_dir: str) -> ConfigDict:
         assert os.path.exists(config_dir)
         conf = OmegaConf.load(config_dir)
         assert isinstance(conf, DictConfig)
-        return conf
+        conf_dict = OmegaConf.to_object(conf)
+        return conf_dict  # type: ignore
 
-    def _pick_dataset_config(self, name: str) -> DictConfig:
+    def _pick_dataset_config(self, name: str) -> ConfigDict:
         assert name in self.config
         dataset_config = self.config[name]
         return dataset_config
 
-    def _load_provider(self, dataset_config: DictConfig) -> Type[BaseProvider]:
+    def _load_provider(self, dataset_config: ConfigDict) -> Type[BaseProvider]:
         assert ReservedKeys.TYPE in dataset_config
         return load_provider_from_path(dataset_config[ReservedKeys.TYPE])
 
-    def _overload_catalog_config(self, config: DictConfig) -> DictConfig:
+    def _overload_catalog_config(self, config: ConfigDict) -> ConfigDict:
         # remove all entries with keys that start with a underscore
         for key in list(config.keys()):
             if key.startswith("_"):  # type: ignore
@@ -68,7 +70,7 @@ class DataCatalog:
 
         return config
 
-    def _overload_dataset_config(self, dataset_config: DictConfig) -> DictConfig:
+    def _overload_dataset_config(self, dataset_config: ConfigDict) -> ConfigDict:
         # prepend root path to filepath
         dataset_config[ReservedKeys.FILEPATH] = os.path.join(
             self.root_dir, dataset_config[ReservedKeys.FILEPATH]
