@@ -1,0 +1,7 @@
+dict_read:
+  type: pickle.PickleData
+  filepath: data/dict.pickle
+
+dict_saved:
+  type: pickle.PickleData
+  filepath: data/saved.pickle

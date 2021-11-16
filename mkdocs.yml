@@ -27,13 +27,14 @@ plugins:
       watch:
         - universal_data_catalog
 nav:
-  - Home : index.md
-  - Installation : logic/install.md
-  - Example : logic/example.md
-  - Custom Provider : logic/custom_provider.md
+  - Home: index.md
+  - Installation: logic/install.md
+  - Example: logic/example.md
+  - Custom Provider: logic/custom_provider.md
   - Config File: logic/config_file.md
   - Code Documentation:
       - Data Catalog: code/data_catalog.md
       - Provider:
-        - Pandas: code/pandas.md
-        - Networkx: code/networkx.md
+          - Pandas: code/pandas.md
+          - Networkx: code/networkx.md
+          - Pickle: code/pickle.md

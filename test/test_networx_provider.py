@@ -47,12 +47,12 @@ def graph_assertion_test(graph: nx.Graph):
 
 class TestGMLNetworkx:
     def test_load(self):
-        catalog = DataCatalog("conf/catalog.yml", ".")
+        catalog = DataCatalog("data/catalog.yml", ".")
         graph = catalog.load("graph")
         graph_assertion_test(graph)
 
     def test_save(self, sample_graph: nx.Graph):
-        catalog = DataCatalog("conf/catalog.yml", ".")
+        catalog = DataCatalog("data/catalog.yml", ".")
         catalog.save("graph_save", sample_graph)
         assert os.path.exists("data/graph_save.gml")
         graph = nx.read_gml("data/graph_save.gml")

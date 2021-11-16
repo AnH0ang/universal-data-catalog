@@ -1,0 +1,7 @@
+graph:
+  type: networkx.GMLNetworkX
+  filepath: data/graph.gml
+
+graph_save:
+  type: networkx.GMLNetworkX
+  filepath: data/graph_save.gml

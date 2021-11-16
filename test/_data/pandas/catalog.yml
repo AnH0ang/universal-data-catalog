@@ -9,6 +9,7 @@ _csv: &csv
     sep: ","
   save_args:
     index: False
+  readonly: False
 
 titanic:
   <<: *csv
@@ -18,6 +19,11 @@ titanic_save:
   <<: *csv
   filepath: data/titanic_saved.csv
 
+titanic_save_readonly:
+  <<: *csv
+  filepath: data/titanic_saved.csv
+  readonly: True
+
 titanic_excel:
   <<: *excel
   filepath: data/titanic.xlsx
@@ -25,11 +31,3 @@ titanic_excel:
 titanic_excel_save:
   <<: *excel
   filepath: data/titanic_saved.xlsx
-
-graph:
-  type: networkx.GMLNetworkX
-  filepath: data/graph.gml
-
-graph_save:
-  type: networkx.GMLNetworkX
-  filepath: data/graph_save.gml
