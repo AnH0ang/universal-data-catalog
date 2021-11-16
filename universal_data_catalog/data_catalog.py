@@ -3,11 +3,10 @@ from typing import Any, Type, Union
 
 from omegaconf import DictConfig, OmegaConf
 
-from .constants import ReservedKeys
-from .exceptions import ReadOnlyError
-from .provider.base_provider import BaseProvider
-from .types import ConfigDict
-from .util.load_provider import load_provider_from_path
+from universal_data_catalog.constants import ReservedKeys
+from universal_data_catalog.provider.base_provider import BaseProvider
+from universal_data_catalog.types import ConfigDict
+from universal_data_catalog.util.load_provider import load_provider_from_path
 
 
 class DataCatalog:
@@ -19,8 +18,10 @@ class DataCatalog:
             self.config = self._load_catalog_config_from_yaml(config)
         elif isinstance(config, dict):
             self.config = config
+        elif isinstance(config, DictConfig):
+            self.config: ConfigDict = OmegaConf.to_object(config)  # type: ignore
         else:
-            raise ValueError()
+            raise ValueError("Expects 'config' to be of type str, dict or DictConfig.")
 
         # overload config
         self.config = self._overload_catalog_config(self.config)
@@ -37,7 +38,9 @@ class DataCatalog:
         if (ReservedKeys.READONLY in dataset_config) and dataset_config[
             ReservedKeys.READONLY
         ]:
-            raise ReadOnlyError()
+            raise PermissionError(
+                f"Trying to save to dataset '{name}' which is read only."
+            )
 
         provider = self._load_provider(dataset_config)
         return provider(dataset_config).save(value)
