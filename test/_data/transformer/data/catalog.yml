@@ -1,0 +1,24 @@
+_csv: &csv
+  type: pandas.CSVDataSet
+  load_args:
+    sep: ","
+  save_args:
+    index: False
+
+titanic:
+  <<: *csv
+  filepath: data/titanic.csv
+  transformers:
+    - type: extra.custom_transformer.AddColumnTransformer
+
+titanic_save:
+  <<: *csv
+  filepath: data/titanic_save.csv
+  transformers:
+    - type: extra.custom_transformer.AddColumnTransformer
+
+titanic_modify_path:
+  <<: *csv
+  filepath: titanic.csv
+  transformers:
+    - type: extra.custom_transformer.ModifyPathTransformer
