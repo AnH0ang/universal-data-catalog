@@ -32,7 +32,7 @@ class TestTransformer:
         df = catalog.load("titanic")
         assert isinstance(df, pd.DataFrame)
         assert "new_col" in df.columns
-        assert (df["new_col"] == "test1").all()
+        assert (df["new_col"] == "new_val").all()
 
     def test_before_save_custom_transformer(self):
         catalog = DataCatalog("data/catalog.yml", ".")
@@ -41,7 +41,7 @@ class TestTransformer:
         catalog.save("titanic_save", df)
         df_saved = pd.read_csv("data/titanic_save.csv")
         assert "new_col" in df_saved.columns
-        assert (df_saved["new_col"] == "test2").all()
+        assert (df_saved["new_col"] == "new_val").all()
 
     def test_before_load_custom_transformer(self):
         catalog = DataCatalog("data/catalog.yml", ".")

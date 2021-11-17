@@ -12,13 +12,13 @@ from universal_data_catalog.types import ConfigDict
 class AddColumnTransformer(BaseTransformer):
     def after_load(self, value: pd.DataFrame) -> pd.DataFrame:
         assert isinstance(value, pd.DataFrame)
-        value["new_col"] = "test1"
+        value[self.config["col"]] = self.config["val"]
         return value
 
     def before_save(
         self, config: ConfigDict, value: pd.DataFrame
     ) -> tuple[ConfigDict, pd.DataFrame]:
-        value["new_col"] = "test2"
+        value[self.config["col"]] = self.config["val"]
         return config, value
 
 

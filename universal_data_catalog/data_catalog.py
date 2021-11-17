@@ -142,7 +142,7 @@ class DataCatalog:
                 transformer_class = load_transformer_from_path(
                     transformer_config[ReservedKeys.TYPE]
                 )
-                transformers.append(transformer_class())
+                transformers.append(transformer_class(transformer_config))
             return transformers
 
     def _apply_after_load(self, transformers: list[BaseTransformer], value: Any) -> Any:
