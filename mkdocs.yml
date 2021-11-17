@@ -31,9 +31,11 @@ nav:
   - Installation: logic/install.md
   - Example: logic/example.md
   - Custom Provider: logic/custom_provider.md
+  - Custom Transformer: logic/custom_transformer.md
   - Config File: logic/config_file.md
   - Code Documentation:
       - Data Catalog: code/data_catalog.md
+      - Transformer: code/transformer.md
       - Provider:
           - Pandas: code/pandas.md
           - Networkx: code/networkx.md
