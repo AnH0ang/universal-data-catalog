@@ -9,7 +9,7 @@ titanic:
   <<: *csv
   filepath: data/titanic.csv
   transformers:
-    - type: extra.custom_transformer.AddColumnTransformer
+    - type: custom_transformer.custom_transformer.AddColumnTransformer
       col: new_col
       val: new_val
 
@@ -17,7 +17,7 @@ titanic_save:
   <<: *csv
   filepath: data/titanic_save.csv
   transformers:
-    - type: extra.custom_transformer.AddColumnTransformer
+    - type: custom_transformer.custom_transformer.AddColumnTransformer
       col: new_col
       val: new_val
 
@@ -25,4 +25,4 @@ titanic_modify_path:
   <<: *csv
   filepath: titanic.csv
   transformers:
-    - type: extra.custom_transformer.ModifyPathTransformer
+    - type: custom_transformer.custom_transformer.ModifyPathTransformer

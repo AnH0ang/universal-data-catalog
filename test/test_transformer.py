@@ -17,11 +17,14 @@ def run_around_tests():
         assert not os.path.exists("data")
         assert not os.path.exists("extra")
 
-        shutil.copytree(os.path.join("_data", "transformer", "extra"), "extra")
+        shutil.copytree(
+            os.path.join("_data", "transformer", "custom_transformer"),
+            "custom_transformer",
+        )
         shutil.copytree(os.path.join("_data", "transformer", "data"), "data")
         yield
     finally:
-        shutil.rmtree("extra", ignore_errors=True)
+        shutil.rmtree("custom_transformer", ignore_errors=True)
         shutil.rmtree("data", ignore_errors=True)
         os.chdir("..")
 
