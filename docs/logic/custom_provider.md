@@ -1,6 +1,5 @@
 # Custom Provider
 
-
 * As an example create a json pandas loader
 
 ## Folder Structure
@@ -13,9 +12,7 @@
 │   └── dataset.json
 └── src
     ├── __init__.py
-    └── custom_provider
-        ├── __init__.py
-        └── json_provider.py
+    └── custom_provider.py
 ```
 
 ## Subclass `BaseProvider`
@@ -28,7 +25,7 @@
 
 import pandas as pd
 
-from .base_provider import BaseProvider
+from universal_data_catalog.provider.base_provider import BaseProvider
 
 
 class JSONDataSet(BaseProvider):
@@ -51,6 +48,7 @@ json_dataset:
   type: src.custom_provider.JSONDataSet
 ```
 
+## Load from data catalog
 
 ```python
 # main.py
