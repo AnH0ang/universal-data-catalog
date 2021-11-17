@@ -14,11 +14,13 @@ def run_around_tests():
     try:
         assert os.path.exists("_data")
         assert not os.path.exists("data_catalog")
-        shutil.copytree(os.path.join("_data", "data_catalog", "extra"), "extra")
+        shutil.copytree(
+            os.path.join("_data", "data_catalog", "custom_provider"), "custom_provider"
+        )
         shutil.copytree(os.path.join("_data", "data_catalog", "data"), "data")
         yield
     finally:
-        shutil.rmtree("extra", ignore_errors=True)
+        shutil.rmtree("custom_provider", ignore_errors=True)
         shutil.rmtree("data", ignore_errors=True)
         os.chdir("..")
 
