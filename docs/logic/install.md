@@ -1,7 +1,7 @@
 # Install Package
 
 
-To install `universal-data-catalog` just run:
+To install `universal-data-catalog` simply run:
 
 ```
 pip install universal-data-catalog
@@ -9,8 +9,8 @@ pip install universal-data-catalog
 
 # Install with Extras
 
-If you want to use a `pandas` dataframe in combination with the data catalog, you need to install `pandas` as an extra dependencie.
-It is not shipped with the package by default. To do this simply run the following command.
+If you want to use a `pandas` data frame in combination with the data catalog, you need to specify `pandas` as an extra dependency.
+It is not shipped with the package by default. To do this, simply run the following command.
 
 ```
 pip install universal-data-catalog[pandas]

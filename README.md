@@ -13,11 +13,12 @@
 
 ## Introduction
 
-The goal of `universal-data-catalog` is to act as an abstraction layer on top of data IO targeted
-at small to medium sized Data Science projects.
-Rather than hard-coding the data interface in `pandas`, the configuration is instead loaded
-from a configuration file that acts as a data catalog.
-The concept is borrowed from [kedro](https://github.com/quantumblacklabs/kedro) data catalog.
+The goal of `universal-data-catalog` is to act as an abstraction layer on top of the data IO.
+for small to medium sized data science projects.
+Instead of hard-coding the data interface in `pandas`, the configuration is instead loaded from a configuration file
+loaded from a configuration file that acts as a data catalog.
+The concept is borrowed from the [kedro](https://github.com/quantumblacklabs/kedro) data catalog.
+
 
 Full documentation can be found at [readthedocs.com](https://universal-data-catalog.readthedocs.io/en/latest/).
 
@@ -26,20 +27,17 @@ Full documentation can be found at [readthedocs.com](https://universal-data-cata
 The advantages of `universal-data-catalog` are:
 * **Abstraction**: Instead of hard-coding the data interface, you can use a configuration file
 that separates the code from the configuration.
-* **YAML-Config**: Since the configuration file is in `YAML` format, it can be easily integrated
-with `Hydra` and other `YAML` based configuration/orchestration tools.
+* **YAML config**: Since the configuration file is in `YAML' format, it can easily be used in
+with Hydra and other YAML-based configuration and orchestration tools.
 * **Customizability**: Link your own data provider to the data catalog.
-* **Plugable**: A wide range of providers are supported and many more will be added. Those include:
+* **Pluggability**: A range of providers are supported and many more will be added soon. These include:
     * `pandas`
     * `networkx`
     * `pickle`
-    * `snowflake` (planned)
-    * `azure blob` (planned)
-    * `aws s3` (planned)
 
 ## Installation
 
-You can easily install this package using `pip`.
+You can easily install this package with `pip`.
 
 ```
 pip install universal-data-catalog
@@ -47,7 +45,7 @@ pip install universal-data-catalog
 
 ## Usage
 
-Specify the loading configuration for your data in a separate `config.yaml` file.
+Set the load configuration for your data in a separate `config.yaml` file.
 
 ```yaml
 # catalog.yml
