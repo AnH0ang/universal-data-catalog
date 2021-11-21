@@ -8,7 +8,7 @@ from .base_provider import BaseProvider
 class GMLNetworkX(BaseProvider):
     """``GMLNetworkX`` loads/saves a graph from/to a GML file using networkx.
 
-    It acts a thin abastration layer for the networkx functions ``networkx.read_gml``
+    It acts a thin abstraction layer for the networkx functions ``networkx.read_gml``
     and ``networkx.write_gml``.
     """
 
@@ -16,7 +16,7 @@ class GMLNetworkX(BaseProvider):
         """Load data using ``networkx.read_gml``.
 
         Returns:
-            Loaded DatatFrame.
+            Loaded DataFrame.
         """
         assert ReservedKeys.FILEPATH in self.config
         return nx.read_gml(

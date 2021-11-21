@@ -13,7 +13,7 @@ class PickleData(BaseProvider):
         """Load object using ``pickle.load``.
 
         Returns:
-            Loaded DatatFrame.
+            Loaded python object
         """
         assert ReservedKeys.FILEPATH in self.config
         with open(self.config[ReservedKeys.FILEPATH], "rb") as f:
