@@ -181,7 +181,8 @@ class DataCatalog:
 
     def _overload_dataset_config(self, dataset_config: ConfigDict) -> ConfigDict:
         # prepend root path to filepath
-        dataset_config[ReservedKeys.FILEPATH] = os.path.join(
-            self.root_dir, dataset_config[ReservedKeys.FILEPATH]
-        )
+        if ReservedKeys.FILEPATH in dataset_config:
+            dataset_config[ReservedKeys.FILEPATH] = os.path.join(
+                self.root_dir, dataset_config[ReservedKeys.FILEPATH]
+            )
         return dataset_config
