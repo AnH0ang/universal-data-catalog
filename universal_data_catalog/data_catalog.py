@@ -32,7 +32,7 @@ class DataCatalog:
 
     """
 
-    def __init__(self, config: Union[str, ConfigDict, DictConfig], root_dir: str):
+    def __init__(self, config: Union[str, ConfigDict, DictConfig], root_dir: str = "."):
         """Initialize the Data Catalog with the path to a config file or a config dictionary.
 
         Args:
