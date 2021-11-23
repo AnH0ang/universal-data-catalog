@@ -32,7 +32,7 @@ class DataCatalog:
 
     """
 
-    def __init__(self, config: Union[str, ConfigDict, DictConfig], root_dir: str):
+    def __init__(self, config: Union[str, ConfigDict, DictConfig], root_dir: str = "."):
         """Initialize the Data Catalog with the path to a config file or a config dictionary.
 
         Args:
@@ -181,7 +181,8 @@ class DataCatalog:
 
     def _overload_dataset_config(self, dataset_config: ConfigDict) -> ConfigDict:
         # prepend root path to filepath
-        dataset_config[ReservedKeys.FILEPATH] = os.path.join(
-            self.root_dir, dataset_config[ReservedKeys.FILEPATH]
-        )
+        if ReservedKeys.FILEPATH in dataset_config:
+            dataset_config[ReservedKeys.FILEPATH] = os.path.join(
+                self.root_dir, dataset_config[ReservedKeys.FILEPATH]
+            )
         return dataset_config

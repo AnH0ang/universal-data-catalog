@@ -1,6 +1,6 @@
 # Custom Provider
 
-* As an example create a json pandas loader
+In this chapter, we will create a custom provider that reads a json object as a pandas data frame.
 
 ## Folder Structure
 
@@ -17,8 +17,8 @@
 
 ## Subclass `BaseProvider`
 
-* You need to implement `.load()` and `.save()`
-* All arguments of the dataset from `catalog.yml` are loaded into `self.config`
+* You must implement `.load()` and `.save()`.
+* All arguments of the record from `catalog.yml` are loaded into `self.config`.
 
 ```python
 # src/custom_provider/json_provider.py

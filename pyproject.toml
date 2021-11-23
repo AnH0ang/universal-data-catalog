@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "universal_data_catalog"
-version = "0.1.9"
+version = "0.1.10"
 description = "A abstraction layer for dataset IO that can be configured using yaml files."
 authors = ["An Hoang <anhoang31415@gmail.com>"]
 readme = "README.md"

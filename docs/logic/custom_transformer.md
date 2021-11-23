@@ -1,6 +1,7 @@
 # Custom Transformer
 
-* As an example create a transformer that creates a new column before writing
+In this example, we will create a transformer that creates a new column before storing the data in the data catalog.
+
 
 ## Folder Structure
 
@@ -16,8 +17,10 @@
 
 ## Subclass `BaseTransformer`
 
-* You can implement any of `.before_load()`, `.after_load()` or `before_save()`
-* All arguments of the transformer from `catalog.yml` are loaded into `self.config`
+* You can implement any of `.before_load()`, `.after_load()` or `before_save()`.
+* All arguments of the transformer from `catalog.yml` are loaded into `self.config`.
+
+
 
 ```python
 import pandas as pd

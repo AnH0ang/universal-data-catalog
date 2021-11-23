@@ -8,7 +8,7 @@ from .base_provider import BaseProvider
 class CSVDataSet(BaseProvider):
     """``CSVDataSet`` loads/saves data from/to a CSV file using pandas.
 
-    It acts a thin abastration layer for the pandas functions ``pd.read_csv``
+    It acts a thin abstraction layer for the pandas functions ``pd.read_csv``
     and ``pd.DataFrame.to_csv``.
     """
 
@@ -16,7 +16,7 @@ class CSVDataSet(BaseProvider):
         """Load data using ``pd.read_csv``.
 
         Returns:
-            Loaded DatatFrame.
+            Loaded DataFrame.
         """
         assert ReservedKeys.FILEPATH in self.config
         return pd.read_csv(
@@ -35,7 +35,7 @@ class CSVDataSet(BaseProvider):
 class ExcelDataSet(BaseProvider):
     """``ExcelDataSet`` loads/saves data from/to a Excel file using pandas.
 
-    It acts a thin abastration layer for the pandas functions ``pd.read_excel``
+    It acts a thin abstraction layer for the pandas functions ``pd.read_excel``
     and ``pd.DataFrame.to_excel``. It uses ``openpyxl`` as a the standard backend.
     """
 
