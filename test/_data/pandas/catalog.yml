@@ -15,6 +15,11 @@ titanic:
   <<: *csv
   filepath: data/titanic.csv
 
+titanic_absolute:
+  <<: *csv
+  filepath: data/titanic.csv
+  isabsolute: True
+
 titanic_save:
   <<: *csv
   filepath: data/titanic_saved.csv

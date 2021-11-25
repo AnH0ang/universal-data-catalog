@@ -69,6 +69,11 @@ class TestCSVDataSet:
         df = catalog.load("titanic")
         titanic_assertion_tests(df)
 
+    def test_load_from_absolute(self) -> None:
+        catalog = DataCatalog("data/catalog.yml", "test/test/test")
+        df = catalog.load("titanic_absolute")
+        titanic_assertion_tests(df)
+
     def test_save(self) -> None:
         df_orig = pd.read_csv("data/titanic.csv")
         catalog = DataCatalog("data/catalog.yml", ".")
