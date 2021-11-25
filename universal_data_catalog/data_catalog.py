@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 from typing import Any, Union
 
@@ -66,6 +67,7 @@ class DataCatalog:
         Returns:
             The loaded dataset.
         """
+        logging.info(f"Load dataset with name '{name}'")
         # load dataset
         dataset_config = self._pick_dataset_config(name)
         transformers = self._load_transformers(dataset_config)
@@ -89,6 +91,8 @@ class DataCatalog:
         Raises:
             PermissionError: The Dataset is read only.
         """
+        logging.info(f"Save dataset with name '{name}'")
+
         # get dataset configuration
         dataset_config = self._pick_dataset_config(name)
 
