@@ -17,10 +17,10 @@ class PickleData(BaseProvider):
         """
         assert ReservedKeys.FILEPATH in self.config
         with open(self.config[ReservedKeys.FILEPATH], "rb") as f:
-            return pickle.load(f)
+            return pickle.load(f, **self.config.get("load_args", {}))
 
     def save(self, value: Any) -> None:
         """Save object using ``pickle.dump``."""
         assert ReservedKeys.FILEPATH in self.config
         with open(self.config[ReservedKeys.FILEPATH], "wb") as f:
-            pickle.dump(value, f, **self.config.get("load_args", {}))
+            pickle.dump(value, f, **self.config.get("save_args", {}))
