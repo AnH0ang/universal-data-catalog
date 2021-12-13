@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 from omegaconf import DictConfig, OmegaConf
 
 from universal_data_catalog.constants import ReservedKeys
+from universal_data_catalog.exceptions import NotFoundInCatalogError
 from universal_data_catalog.provider.base_provider import BaseProvider
 from universal_data_catalog.transformer.base_transformer import BaseTransformer
 from universal_data_catalog.types import ConfigDict
@@ -68,8 +69,8 @@ class DataCatalog:
             The loaded dataset.
         """
         logging.info(f"Load dataset with name '{name}'")
-        # load dataset
         dataset_config = self._pick_dataset_config(name)
+
         transformers = self._load_transformers(dataset_config)
         dataset_config = self._apply_pre_load(transformers, dataset_config)
 
@@ -80,6 +81,21 @@ class DataCatalog:
         value = provider.load()
         value = self._apply_after_load(transformers, value)
         return value
+
+    def load_default(self, name: str, *, default: Optional[Any] = None) -> Any:
+        """load a dataset from the catalog with a default value if the file is not found
+
+        Args:
+            name: name of dataset
+            default: default return value
+
+        Returns:
+            The loaded dataset or a default value.
+        """
+        try:
+            return self.load(name)
+        except NotFoundInCatalogError:
+            return default
 
     def save(self, name: str, value: Any) -> None:
         """Save dataset to catalog with the specified name.
@@ -124,7 +140,9 @@ class DataCatalog:
         return conf_dict  # type: ignore
 
     def _pick_dataset_config(self, name: str) -> ConfigDict:
-        assert name in self.config
+        if name not in self.config:
+            raise NotFoundInCatalogError()
+
         dataset_config = self.config[name]
         return dataset_config
 
