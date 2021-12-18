@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 from omegaconf import DictConfig, OmegaConf
 
@@ -114,14 +114,20 @@ class DataCatalog:
         dataset_config = self._pick_dataset_config(name)
 
         # raise error is real only flag is set to true
-        if (ReservedKeys.READONLY in dataset_config) and dataset_config[ReservedKeys.READONLY]:
-            raise PermissionError(f"Trying to save to dataset '{name}' which is read only.")
+        if (ReservedKeys.READONLY in dataset_config) and dataset_config[
+            ReservedKeys.READONLY
+        ]:
+            raise PermissionError(
+                f"Trying to save to dataset '{name}' which is read only."
+            )
 
         # load transformers
         transformers = self._load_transformers(dataset_config)
 
         # apply transformers
-        dataset_config, value = self._apply_pre_save(transformers, dataset_config, value)
+        dataset_config, value = self._apply_pre_save(
+            transformers, dataset_config, value
+        )
 
         # save value
         provider = self._load_provider(dataset_config)
@@ -146,7 +152,7 @@ class DataCatalog:
         # split name into base name and decorator name
         if "$" in name:
             base_name, suffix = name.split("$", 1)
-            decorator_name = "$" + suffix
+            decorator_name: Optional[str] = "$" + suffix
         else:
             base_name, decorator_name = name, None
 
