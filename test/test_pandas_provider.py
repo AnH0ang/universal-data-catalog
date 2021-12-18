@@ -97,6 +97,11 @@ class TestCSVDataSet:
         df = catalog.load_default("titanic")
         titanic_assertion_tests(df)
 
+    def test_decorator(self) -> None:
+        catalog = DataCatalog("data/catalog.yml")
+        df = catalog.load("titanic_faulty$csv")
+        titanic_assertion_tests(df)
+
 
 class TestExcelDataSet:
     def test_load(self) -> None:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Any, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 from omegaconf import DictConfig, OmegaConf
 
@@ -71,6 +71,7 @@ class DataCatalog:
         logging.info(f"Load dataset with name '{name}'")
         dataset_config = self._pick_dataset_config(name)
 
+        # load config
         transformers = self._load_transformers(dataset_config)
         dataset_config = self._apply_pre_load(transformers, dataset_config)
 
@@ -113,20 +114,14 @@ class DataCatalog:
         dataset_config = self._pick_dataset_config(name)
 
         # raise error is real only flag is set to true
-        if (ReservedKeys.READONLY in dataset_config) and dataset_config[
-            ReservedKeys.READONLY
-        ]:
-            raise PermissionError(
-                f"Trying to save to dataset '{name}' which is read only."
-            )
+        if (ReservedKeys.READONLY in dataset_config) and dataset_config[ReservedKeys.READONLY]:
+            raise PermissionError(f"Trying to save to dataset '{name}' which is read only.")
 
         # load transformers
         transformers = self._load_transformers(dataset_config)
 
         # apply transformers
-        dataset_config, value = self._apply_pre_save(
-            transformers, dataset_config, value
-        )
+        dataset_config, value = self._apply_pre_save(transformers, dataset_config, value)
 
         # save value
         provider = self._load_provider(dataset_config)
@@ -139,12 +134,28 @@ class DataCatalog:
         conf_dict = OmegaConf.to_object(conf)
         return conf_dict  # type: ignore
 
-    def _pick_dataset_config(self, name: str) -> ConfigDict:
-        if name not in self.config:
-            raise NotFoundInCatalogError()
+    def _pick_config_from_name(self, name: Optional[str]) -> DictConfig:
+        if name is None:
+            return DictConfig({})
+        else:
+            if name not in self.config:
+                raise NotFoundInCatalogError()
+            return self.config[name]
 
-        dataset_config = self.config[name]
-        return dataset_config
+    def _pick_dataset_config(self, name: str) -> ConfigDict:
+        # split name into base name and decorator name
+        if "$" in name:
+            base_name, suffix = name.split("$", 1)
+            decorator_name = "$" + suffix
+        else:
+            base_name, decorator_name = name, None
+
+        # load data configs
+        base_config = self._pick_config_from_name(base_name)
+        decorator_config = self._pick_config_from_name(decorator_name)
+
+        # merge configs
+        return OmegaConf.to_object(OmegaConf.merge(base_config, decorator_config))  # type: ignore
 
     def _load_provider(self, dataset_config: ConfigDict) -> BaseProvider:
         assert ReservedKeys.TYPE in dataset_config
@@ -190,18 +201,13 @@ class DataCatalog:
         return dataset_config, value
 
     def _overload_catalog_config(self, config: ConfigDict) -> ConfigDict:
-        # remove all entries with keys that start with a underscore
-        for key in list(config.keys()):
-            if key.startswith("_"):  # type: ignore
-                config.pop(key)
-
         # overload each datset entry individually
         for key in config:
-            config[key] = self._overload_dataset_config(config[key])
+            config[key] = self._overload_filepath(config[key])
 
         return config
 
-    def _overload_dataset_config(self, dataset_config: ConfigDict) -> ConfigDict:
+    def _overload_filepath(self, dataset_config: ConfigDict) -> ConfigDict:
         # prepend root path to filepath
         if ReservedKeys.FILEPATH in dataset_config and not dataset_config.get(
             ReservedKeys.ISABSOLUTE, False
