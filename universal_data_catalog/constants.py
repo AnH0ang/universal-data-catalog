@@ -3,3 +3,4 @@ class ReservedKeys:
     FILEPATH = "filepath"
     TYPE = "type"
     TRANSFORMER = "transformers"
+    ISABSOLUTE = "isabsolute"

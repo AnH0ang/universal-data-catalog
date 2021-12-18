@@ -57,3 +57,30 @@ class ExcelDataSet(BaseProvider):
         value.to_excel(
             self.config[ReservedKeys.FILEPATH], **self.config.get("save_args", {})
         )
+
+
+class ParquetDataSet(BaseProvider):
+    """``ParquetDataSet`` loads/saves data from/to a Excel file using pandas.
+
+    It acts a thin abstraction layer for the pandas functions ``pd.read_parquet``
+    and ``pd.DataFrame.to_parquet``.
+    """
+
+    def load(self) -> pd.DataFrame:
+        """Load data using ``pd.read_parquet``.
+
+        Returns:
+            Loaded DataFrame.
+        """
+        assert ReservedKeys.FILEPATH in self.config
+        return pd.read_parquet(
+            self.config[ReservedKeys.FILEPATH], **self.config.get("load_args", {})
+        )  # type: ignore
+
+    def save(self, value: pd.DataFrame) -> None:
+        """Save data using ``pd.DataFrame.to_parquet``."""
+        assert isinstance(value, pd.DataFrame)
+        assert ReservedKeys.FILEPATH in self.config
+        value.to_parquet(
+            self.config[ReservedKeys.FILEPATH], **self.config.get("save_args", {})
+        )

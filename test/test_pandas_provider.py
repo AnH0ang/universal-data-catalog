@@ -69,6 +69,11 @@ class TestCSVDataSet:
         df = catalog.load("titanic")
         titanic_assertion_tests(df)
 
+    def test_load_from_absolute(self) -> None:
+        catalog = DataCatalog("data/catalog.yml", "test/test/test")
+        df = catalog.load("titanic_absolute")
+        titanic_assertion_tests(df)
+
     def test_save(self) -> None:
         df_orig = pd.read_csv("data/titanic.csv")
         catalog = DataCatalog("data/catalog.yml", ".")
@@ -81,6 +86,16 @@ class TestCSVDataSet:
             df_orig = pd.read_csv("data/titanic.csv")
             catalog = DataCatalog("data/catalog.yml", ".")
             catalog.save("titanic_save_readonly", df_orig)
+
+    def test_load_with_default_not_found(self) -> None:
+        catalog = DataCatalog("data/catalog.yml", "test/test/test")
+        df = catalog.load_default("abc123", default=123)
+        assert df == 123
+
+    def test_load_with_default_is_found(self) -> None:
+        catalog = DataCatalog("data/catalog.yml")
+        df = catalog.load_default("titanic")
+        titanic_assertion_tests(df)
 
 
 class TestExcelDataSet:
