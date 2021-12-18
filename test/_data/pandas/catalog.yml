@@ -36,3 +36,12 @@ titanic_excel:
 titanic_excel_save:
   <<: *excel
   filepath: data/titanic_saved.xlsx
+
+$csv:
+  type: pandas.CSVDataSet
+  save_args:
+    index: False
+
+titanic_faulty:
+  type: NotExitstProvider
+  filepath: data/titanic.csv
